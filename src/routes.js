@@ -5,12 +5,11 @@ const { celebrate, Segments, Joi } = require('celebrate');
 
 routes.post('/device', DeviceController.register);
 
-routes.get('/device', DeviceController.list);
-
-routes.get('/device/:id', celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.string().required()
-    })
-}), DeviceController.getById);
+routes.get('/device', celebrate({
+    [Segments.BODY]: {
+        since: Joi.string().isoDate(),
+        until: Joi.string().isoDate()
+    }
+}), DeviceController.list);
 
 module.exports = routes;
