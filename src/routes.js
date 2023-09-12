@@ -6,9 +6,9 @@ const { celebrate, Segments, Joi } = require('celebrate');
 routes.post('/device', DeviceController.register);
 
 routes.get('/device', celebrate({
-    [Segments.BODY]: {
-        since: Joi.string().isoDate(),
-        until: Joi.string().isoDate()
+    [Segments.QUERY]: {
+        since: Joi.string(),
+        until: Joi.string()
     }
 }), DeviceController.list);
 

@@ -6,13 +6,13 @@ responseError = (resp, errMsg, statusCode) => {
 
 inRange = (log, since, until) => {
     if (since) {
-        const sinceDate = new Date(since);
+        const sinceDate = new Date(`${since}T00:00:00`);
         if (log.date < sinceDate) {
             return false;
         }
     }
     if (until) {
-        const untilDate = new Date(until);
+        const untilDate = new Date(`${until}T23:59:59`);
         if (log.date > untilDate) {
             return false;
         }
@@ -34,7 +34,7 @@ module.exports = {
     },
 
     async list(req, resp) {
-        const { since, until } = req.body;
+        const { since, until } = req.query;
         let devices;
         try {
             devices = await Device.find()
